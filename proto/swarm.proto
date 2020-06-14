@@ -1,0 +1,39 @@
+syntax = "proto3";
+package swarm;
+
+service SwarmDataService {
+    rpc Healthcheck(HealthcheckRequest) returns (HealthcheckResponse);
+    // rpc ServiceStatus() returns (ServiceStats);
+    rpc WriteData(WriteRequest) returns (WriteResponse);
+    rpc ReadData(ReadRequest) returns (ReadResponse);
+}
+
+message HealthcheckRequest {}
+
+message HealthcheckResponse {
+    bool is_healthy = 1;
+    string message = 2;
+    // string EventTime = 3;
+}
+
+message WriteRequest {
+    string namespace = 1;
+    string key = 2;
+    // bytes data = 3;
+    string data = 3;
+}
+
+message WriteResponse {
+    bool was_successful = 1;
+    string reply = 2;
+    // uint64 offset = 3;
+}
+
+message ReadRequest {
+    string namespace = 1;
+    string key = 2;
+}
+
+message ReadResponse {
+    string data = 1;
+}
